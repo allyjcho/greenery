@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+
+        <div id="header">
+            <h1>. Welcome to Greenery, {{ request.session.name }} .</h1>
+        </div>
+
+        <div id="navi">
+            <form action="/logout" method="POST">
+                {% csrf_token %}
+            <input type="submit" value="Logout"></li>
+            </form>
+        </div>
+
+        <div class="plant">
+            <h2>Add New Plant</h2>
+            {% for message in messages %}    
+                <li>{{ message }}</li>    
+            {% endfor %}
+            <form action="/add_plant" method="POST">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <th>Plant Name:</th>
+                        <td><input type="text" name="plant_name"></td>
+                    </tr>
+                    <tr>
+                        <th>Description:</th>
+                        <td><input type="textarea" name="description"></td>
+                    </tr>
+                </table>
+                <br>
+                <input type="submit" value="Add New Plant">
+            </form>
+        </div>
+
+        <div class="plant">
+            <h2>List of Plants</h2>
+            {% for plant in all_plants %}
+            <ul>
+                <li><a href="/plant/{{plant.id}}">{{ plant.plant_name }}</a></li>
+                <li>{{ plant.created_at }}</li>
+                <li>{{ plant.updated_at }}</li>
+            </ul>
+
+            {% if request.session.id == plant.poster.id %}
+            <a href="/delete/{{plant.id}}">Delete</a>
+            <br>
+            {% endif %}
+            <br>
+            {% endfor %}
+        </div>
+
+    </div>
+</body>
+</html>

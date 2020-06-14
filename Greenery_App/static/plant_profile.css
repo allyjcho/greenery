@@ -1,0 +1,37 @@
+body {
+    max-width: 950px;
+    padding: 10px;
+}
+#wrapper {
+    max-width: 960px;
+    margin: auto;
+    background-color: white;
+    padding: 10px;
+}
+#header {
+    padding: 60px;
+    text-align: center;
+    background-color: forestgreen;
+    color: black;
+    font-size: 30px;
+}
+#navi {
+    margin-left: 300px;
+    display: inline;
+}
+.profile {
+    display: inline-block;
+    width: 300px;
+    height: 300px;
+    padding: 20px;
+    vertical-align: top;
+    margin-left: 61px;
+    margin-right: 61px;
+    text-align: left;
+    overflow: scroll;
+}
+.profile ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

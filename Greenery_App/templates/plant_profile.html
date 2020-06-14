@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'plant_profile.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <h1>. {{ plant_id.plant_name }} .</h1>
+        </div>
+
+        <div id="navi">
+            <form action="/main" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Home">
+            </form>
+
+            <form action="/logout" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Logout">
+            </form>
+        </div>
+
+        <div class="profile">
+            <h2>ADD UPDATE</h2>
+            {% for message in messages %}    
+                <li>{{ message }}</li>    
+            {% endfor %}
+            <form action="/update_plant/{{plant_id.id}}" method="POST">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <th>Description:</th>
+                        <td><input type="textarea" name="description"></td>
+                    </tr>
+                </table>
+                <br>
+                <input type="submit" value="Update">
+            </form>
+        </div>
+
+        <div class="profile">
+            {% for description in plant_id.description %}
+            <ul>
+                <li>{{ plant_id.description }}</li>
+                <li>{{ plant_id.updated_at }}</li>
+            </ul>
+
+            {% if request.session.id == plant.poster.id %}
+            <a href="/delete/{{plant.id}}">Delete</a>
+            <br>
+            {% endif %}
+
+            <br>
+            {% endfor %}
+        </div>
+
+    </div>
+</body>
+</html>
